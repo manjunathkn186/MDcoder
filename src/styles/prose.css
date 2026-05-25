@@ -1,0 +1,246 @@
+/* Markdown preview typography (scoped under `.ink-prose`).
+ * All colors flow from the active theme via CSS variables, so changing
+ * themes instantly restyles the prose without a remount.
+ */
+.ink-prose {
+  font-family: var(--ink-font-serif);
+  /* Zoom multiplier (from useUi().zoom) is applied via the global --ink-zoom var. */
+  font-size: calc(var(--ink-fs-lg) * var(--ink-zoom, 1));
+  line-height: var(--ink-lh-relaxed);
+  color: var(--ink-fg);
+  /* Full-width layout: viewport fills the available pane.
+   * Responsive horizontal padding scales between 1rem (narrow) and 4rem (wide). */
+  max-width: none;
+  margin: 0;
+  padding: var(--ink-space-7) clamp(1rem, 4vw, 4rem) var(--ink-space-9);
+}
+
+/* In-preview find highlights (driven by features/find/findController.ts). */
+.ink-find-hit {
+  background: color-mix(in srgb, var(--ink-warning) 35%, transparent);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink-warning) 60%, transparent);
+}
+.ink-find-hit-active {
+  background: var(--ink-warning);
+  color: #1a1a1a;
+  box-shadow: 0 0 0 2px var(--ink-warning);
+}
+
+.ink-prose > * + * { margin-top: 1em; }
+
+.ink-prose h1,
+.ink-prose h2,
+.ink-prose h3,
+.ink-prose h4,
+.ink-prose h5,
+.ink-prose h6 {
+  font-family: var(--ink-font-sans);
+  font-weight: var(--ink-fw-semibold);
+  line-height: var(--ink-lh-tight);
+  letter-spacing: -0.01em;
+  color: var(--ink-fg-strong);
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+.ink-prose h1 { font-size: var(--ink-fs-4xl); margin-top: 0.5em; }
+.ink-prose h2 { font-size: var(--ink-fs-3xl); border-bottom: 1px solid var(--ink-border); padding-bottom: 0.3em; }
+.ink-prose h3 { font-size: var(--ink-fs-2xl); }
+.ink-prose h4 { font-size: var(--ink-fs-xl); }
+.ink-prose h5 { font-size: var(--ink-fs-lg); }
+.ink-prose h6 { font-size: var(--ink-fs-base); color: var(--ink-muted); }
+
+.ink-prose p { color: var(--ink-fg); }
+
+.ink-prose strong { color: var(--ink-fg-strong); font-weight: var(--ink-fw-semibold); }
+.ink-prose em     { font-style: italic; }
+.ink-prose mark   { background: var(--ink-warning-soft); color: inherit; padding: 0 0.2em; border-radius: var(--ink-radius-sm); }
+
+.ink-prose code {
+  font-family: var(--ink-font-mono);
+  background: var(--ink-code-bg);
+  color: var(--ink-code-fg);
+  padding: 0.12em 0.4em;
+  border-radius: var(--ink-radius-sm);
+  font-size: 0.88em;
+}
+.ink-prose pre {
+  background: var(--ink-code-bg);
+  color: var(--ink-code-fg);
+  padding: 1em 1.1em;
+  border-radius: var(--ink-radius-lg);
+  overflow-x: auto;
+  font-family: var(--ink-font-mono);
+  font-size: 0.9em;
+  line-height: 1.55;
+  border: 1px solid var(--ink-border);
+  box-shadow: var(--ink-shadow-1);
+}
+.ink-prose pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: inherit;
+}
+.ink-prose pre.shiki { padding: 1em 1.1em; }
+
+.ink-prose blockquote {
+  border-left: 3px solid var(--ink-accent);
+  background: var(--ink-bg-soft);
+  margin: 1.4em 0;
+  padding: 0.6em 1em;
+  color: var(--ink-muted);
+  border-radius: 0 var(--ink-radius) var(--ink-radius) 0;
+}
+.ink-prose blockquote p { margin: 0.4em 0; }
+
+.ink-prose hr {
+  height: 1px;
+  background: var(--ink-border);
+  border: 0;
+  margin: 2.4em 0;
+}
+
+.ink-prose ul,
+.ink-prose ol {
+  padding-left: 1.4em;
+}
+.ink-prose li + li { margin-top: 0.3em; }
+.ink-prose ul > li::marker { color: var(--ink-muted); }
+.ink-prose ol > li::marker { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+.ink-prose table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.4em 0;
+  font-size: 0.92em;
+}
+.ink-prose th,
+.ink-prose td {
+  border: 1px solid var(--ink-border);
+  padding: 0.5em 0.75em;
+}
+.ink-prose th {
+  background: var(--ink-surface);
+  font-weight: var(--ink-fw-semibold);
+  text-align: left;
+  color: var(--ink-fg-strong);
+}
+.ink-prose tbody tr:nth-child(odd) td { background: var(--ink-bg-soft); }
+
+.ink-prose img {
+  max-width: 100%;
+  border-radius: var(--ink-radius);
+  box-shadow: var(--ink-shadow-1);
+}
+
+.ink-prose a {
+  color: var(--ink-link);
+  text-decoration-color: color-mix(in srgb, var(--ink-link) 40%, transparent);
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+.ink-prose a:hover { text-decoration-color: currentColor; }
+
+/* Task lists */
+.ink-prose li.task-list-item {
+  list-style: none;
+  margin-left: -1.4em;
+}
+.ink-prose li.task-list-item input[type="checkbox"] {
+  margin-right: 0.5em;
+  transform: translateY(2px);
+  accent-color: var(--ink-accent);
+}
+
+/* Footnotes */
+.ink-prose .footnotes {
+  border-top: 1px solid var(--ink-border);
+  margin-top: 3em;
+  padding-top: 1em;
+  font-size: var(--ink-fs-md);
+  color: var(--ink-muted);
+}
+
+/* Wikilinks */
+.ink-prose a.ink-wikilink {
+  color: var(--ink-accent);
+  border-bottom: 1px dashed currentColor;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--ink-d-fast) var(--ink-ease-out);
+}
+.ink-prose a.ink-wikilink:hover { opacity: 0.85; }
+.ink-prose a.ink-wikilink.is-broken {
+  color: var(--ink-danger);
+  opacity: 0.9;
+}
+
+/* Callouts (contributed by the built-in callout plugin) */
+.ink-prose .ink-callout {
+  margin: 1.4em 0;
+  padding: 0.8em 1em;
+  border-left: 4px solid var(--ink-info);
+  background: var(--ink-info-soft);
+  border-radius: 0 var(--ink-radius) var(--ink-radius) 0;
+  color: var(--ink-fg);
+}
+.ink-prose .ink-callout-title {
+  font-weight: var(--ink-fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.78em;
+  margin-bottom: 0.4em;
+  color: inherit;
+  opacity: 0.85;
+}
+.ink-prose .ink-callout p { margin: 0.25em 0; }
+.ink-prose .ink-callout-note    { border-color: var(--ink-info);    background: var(--ink-info-soft); }
+.ink-prose .ink-callout-tip     { border-color: var(--ink-success); background: var(--ink-success-soft); }
+.ink-prose .ink-callout-warning { border-color: var(--ink-warning); background: var(--ink-warning-soft); }
+.ink-prose .ink-callout-danger  { border-color: var(--ink-danger);  background: var(--ink-danger-soft); }
+.ink-prose .ink-callout-info    { border-color: var(--ink-info);    background: var(--ink-info-soft); }
+
+/* Math */
+.ink-prose .ink-math-block {
+  display: block;
+  text-align: center;
+  margin: 1.5em 0;
+  overflow-x: auto;
+}
+.ink-prose .ink-math-inline { font-size: 1em; }
+
+/* Mermaid.
+ * Flowcharts and sequence diagrams render to a fixed-size SVG that ignores
+ * CSS font-size inheritance and (in WKWebView) the CSS `zoom` property.
+ * Sizing is therefore driven imperatively from `Mermaid.tsx`, which writes
+ * `svg.style.width / height` = viewBox * useUi().zoom after each render.
+ *
+ * CSS here only owns layout: block-level centering + spacing. The parent
+ * article (`.ink-prose`) has `overflow:auto`, so when a zoomed diagram is
+ * wider than the pane the user gets a horizontal scrollbar — the rest of
+ * the layout stays put.
+ */
+.ink-prose .ink-mermaid {
+  display: block;
+  text-align: center;
+  margin: 1.4em 0;
+}
+/* Mermaid v10+ injects style="max-width:<natural>px" on the SVG; the
+ * runtime sizing in Mermaid.tsx sets `style.maxWidth = "none"` on the
+ * element so this is a defence-in-depth fallback for cases where the
+ * runtime effect hasn't run yet (e.g. during initial paint). */
+.ink-prose .ink-mermaid svg {
+  max-width: none;
+}
+
+/* Brief flash when the outline jumps to a heading. */
+@keyframes ink-heading-flash {
+  0%   { background-color: color-mix(in srgb, var(--ink-accent) 22%, transparent); }
+  100% { background-color: transparent; }
+}
+.ink-prose .ink-heading-flash {
+  animation: ink-heading-flash 1.2s ease-out;
+  border-radius: 4px;
+}

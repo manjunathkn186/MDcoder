@@ -1,0 +1,33 @@
+# docker-compose.yml
+# Local orchestration of the Inkstone web preview + an artifact-builder
+# container that produces Linux installers into ./artifacts.
+services:
+  web:
+    image: inkstone:web
+    build:
+      context: .
+      target: web
+    container_name: inkstone-web
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # On-demand Linux installer builder. Run with:
+  #   docker compose run --rm linux-bundler
+  linux-bundler:
+    image: inkstone:linux
+    build:
+      context: .
+      target: tauri-runtime
+    profiles: ["build"]
+    volumes:
+      - ./artifacts:/artifacts/out
+    entrypoint:
+      - sh
+      - -c
+      - "cp -r /artifacts/bundle/* /artifacts/out/ && ls /artifacts/out"

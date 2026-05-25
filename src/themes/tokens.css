@@ -1,0 +1,128 @@
+/* Token contract.
+ * Themes write semantic CSS variables to :root at runtime via the Theme SDK.
+ * This file only defines the *structural* tokens (typography ramp, spacing,
+ * radii, elevations, motion timing) plus a safe light-mode fallback so the
+ * app renders correctly even before a theme is applied.
+ */
+:root {
+  /* — Typography ——————————————————————————————————————————— */
+  --ink-font-sans: "Inter", "Helvetica Neue", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ink-font-serif: "Source Serif Pro", "Iowan Old Style", Georgia, serif;
+  --ink-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Menlo", ui-monospace, monospace;
+
+  --ink-fs-xs: 11px;
+  --ink-fs-sm: 12px;
+  --ink-fs-md: 13px;
+  --ink-fs-base: 14px;
+  --ink-fs-lg: 16px;
+  --ink-fs-xl: 18px;
+  --ink-fs-2xl: 22px;
+  --ink-fs-3xl: 28px;
+  --ink-fs-4xl: 34px;
+
+  --ink-lh-tight: 1.2;
+  --ink-lh-normal: 1.5;
+  --ink-lh-relaxed: 1.7;
+
+  --ink-fw-regular: 400;
+  --ink-fw-medium: 500;
+  --ink-fw-semibold: 600;
+  --ink-fw-bold: 700;
+
+  /* — Spacing (4-pt grid) ————————————————————————————————— */
+  --ink-space-0: 0;
+  --ink-space-1: 2px;
+  --ink-space-2: 4px;
+  --ink-space-3: 8px;
+  --ink-space-4: 12px;
+  --ink-space-5: 16px;
+  --ink-space-6: 24px;
+  --ink-space-7: 32px;
+  --ink-space-8: 48px;
+  --ink-space-9: 64px;
+
+  /* — Radii ———————————————————————————————————————————————— */
+  --ink-radius-sm: 4px;
+  --ink-radius: 6px;
+  --ink-radius-lg: 10px;
+  --ink-radius-xl: 14px;
+  --ink-radius-full: 9999px;
+
+  /* — Elevation (kept neutral; themes override shadow color) ——— */
+  --ink-shadow-1: 0 1px 2px var(--ink-shadow-color, rgba(0, 0, 0, 0.06));
+  --ink-shadow-2: 0 4px 12px var(--ink-shadow-color, rgba(0, 0, 0, 0.08));
+  --ink-shadow-3: 0 12px 32px var(--ink-shadow-color, rgba(0, 0, 0, 0.16));
+  --ink-shadow-pop: 0 8px 24px var(--ink-shadow-color, rgba(0, 0, 0, 0.18)),
+    0 2px 4px var(--ink-shadow-color, rgba(0, 0, 0, 0.08));
+
+  /* — Motion ———————————————————————————————————————————————— */
+  --ink-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ink-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ink-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ink-d-fast: 120ms;
+  --ink-d-base: 180ms;
+  --ink-d-slow: 280ms;
+
+  /* — Z-index scale ———————————————————————————————————————— */
+  --ink-z-base: 0;
+  --ink-z-overlay: 40;
+  --ink-z-modal: 50;
+  --ink-z-popover: 60;
+  --ink-z-toast: 70;
+  --ink-z-tooltip: 80;
+
+  /* — Semantic color fallback (Inkstone Light) ————————————— */
+  --ink-bg: #ffffff;
+  --ink-bg-soft: #fbfbfd;
+  --ink-surface: #f7f7f9;
+  --ink-surface-2: #eef0f3;
+  --ink-surface-elevated: #ffffff;
+  --ink-fg: #11151c;
+  --ink-fg-strong: #050810;
+  --ink-muted: #6b7280;
+  --ink-subtle: #9aa1ab;
+  --ink-border: #e5e7eb;
+  --ink-border-strong: #d1d5db;
+  --ink-accent: #2563eb;
+  --ink-accent-hover: #1d4ed8;
+  --ink-accent-fg: #ffffff;
+  --ink-accent-soft: rgba(37, 99, 235, 0.12);
+  --ink-danger: #dc2626;
+  --ink-danger-soft: rgba(220, 38, 38, 0.12);
+  --ink-success: #16a34a;
+  --ink-success-soft: rgba(22, 163, 74, 0.12);
+  --ink-warning: #d97706;
+  --ink-warning-soft: rgba(217, 119, 6, 0.12);
+  --ink-info: #0284c7;
+  --ink-info-soft: rgba(2, 132, 199, 0.12);
+
+  --ink-code-bg: #f3f4f6;
+  --ink-code-fg: #1f2937;
+  --ink-selection: rgba(37, 99, 235, 0.18);
+  --ink-link: #2563eb;
+
+  --ink-scroll-thumb: rgba(0, 0, 0, 0.18);
+  --ink-scroll-thumb-hover: rgba(0, 0, 0, 0.32);
+  --ink-shadow-color: rgba(15, 23, 42, 0.08);
+}
+
+/* — Density modes ———————————————————————————————————————————— */
+:root[data-density="compact"] {
+  --ink-fs-base: 13px;
+  --ink-space-5: 12px;
+  --ink-space-6: 18px;
+}
+:root[data-density="cozy"] {
+  --ink-fs-base: 15px;
+  --ink-space-5: 18px;
+  --ink-space-6: 28px;
+}
+
+/* — Reduced motion ——————————————————————————————————————————— */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ink-d-fast: 0ms;
+    --ink-d-base: 0ms;
+    --ink-d-slow: 0ms;
+  }
+}

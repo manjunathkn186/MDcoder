@@ -1,0 +1,91 @@
+/* Print stylesheet — applied when window.matchMedia('print') matches.
+ * The body is replaced by a single `.ink-print` document built by the
+ * print service so the rest of the app chrome never reaches paper.
+ */
+@page {
+  size: A4;
+  margin: 18mm 16mm 20mm 16mm;
+}
+
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide everything except the print container. */
+  body > *:not(.ink-print) {
+    display: none !important;
+  }
+
+  .ink-print {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    color: #111;
+    background: #fff;
+    font-family: var(--ink-font-serif, Georgia, serif);
+    font-size: 11pt;
+    line-height: 1.55;
+  }
+
+  .ink-print .ink-print-header,
+  .ink-print .ink-print-footer {
+    color: #666;
+    font-size: 9pt;
+  }
+
+  .ink-print h1 { font-size: 22pt; margin: 0 0 0.4em; page-break-after: avoid; }
+  .ink-print h2 { font-size: 16pt; margin: 1.2em 0 0.4em; page-break-after: avoid; }
+  .ink-print h3 { font-size: 13pt; margin: 1em 0 0.3em; page-break-after: avoid; }
+  .ink-print p, .ink-print li { orphans: 3; widows: 3; }
+
+  .ink-print pre, .ink-print code {
+    font-family: "SF Mono", Menlo, ui-monospace, monospace;
+    font-size: 9.5pt;
+  }
+  .ink-print pre {
+    background: #f5f5f5 !important;
+    border: 1px solid #e5e5e5;
+    padding: 0.6em 0.8em;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .ink-print blockquote {
+    border-left: 3px solid #888;
+    margin: 1em 0;
+    padding: 0.2em 1em;
+    color: #444;
+    page-break-inside: avoid;
+  }
+
+  .ink-print img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+  .ink-print table {
+    border-collapse: collapse;
+    width: 100%;
+    page-break-inside: avoid;
+  }
+  .ink-print th, .ink-print td {
+    border: 1px solid #ccc;
+    padding: 4pt 6pt;
+  }
+  .ink-print th { background: #f0f0f0; }
+
+  .ink-print a { color: #111; text-decoration: underline; }
+  .ink-print a::after { content: " (" attr(href) ")"; color: #666; font-size: 0.85em; }
+  .ink-print a[href^="#"]::after,
+  .ink-print a.ink-wikilink::after { content: ""; }
+
+  /* Pagination helpers */
+  .ink-print .page-break { page-break-after: always; }
+  .ink-print h1, .ink-print h2 { break-after: avoid-page; }
+}

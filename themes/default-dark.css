@@ -1,0 +1,14 @@
+/* Reference theme demonstrating the token-override contract. */
+[data-theme="default-dark"] {
+  --ink-bg: #0b0d10;
+  --ink-surface: #111418;
+  --ink-surface-2: #1a1f24;
+  --ink-fg: #e5e7eb;
+  --ink-muted: #9ca3af;
+  --ink-accent: #60a5fa;
+  --ink-accent-fg: #0b0d10;
+  --ink-border: #232a31;
+  --ink-code-bg: #1a1f24;
+  --ink-selection: rgba(96, 165, 250, 0.22);
+  --ink-link: #93c5fd;
+}

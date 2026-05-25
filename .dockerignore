@@ -1,0 +1,14 @@
+.git
+.gitignore
+.github
+.idea
+.vscode
+.windsurf
+node_modules
+dist
+artifacts
+src-tauri/target
+*.log
+*.md
+!README.md
+!LICENSE

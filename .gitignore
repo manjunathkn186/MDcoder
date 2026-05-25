@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+build
+*.local
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Tauri
+src-tauri/target
+src-tauri/gen
+src-tauri/WixTools
+
+# Env
+.env
+.env.*
+!.env.example

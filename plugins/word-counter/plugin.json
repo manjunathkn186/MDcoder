@@ -1,0 +1,10 @@
+{
+  "id": "word-counter",
+  "name": "Word Counter",
+  "version": "1.0.0",
+  "description": "Adds a live word count badge to the status bar.",
+  "author": "Inkstone",
+  "main": "main.js",
+  "permissions": ["statusBar", "workspace"],
+  "category": "productivity"
+}
